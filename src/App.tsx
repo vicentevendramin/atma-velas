@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { OrdersPage } from './pages';
+import { getPedidos } from './services/localStorareService';
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  useEffect(() => {}, []);
+  // adicionarPedido(1, 'Cliente A', '2024-05-03', 100.50, 'Em andamento');
+  // adicionarPedido(2, 'Cliente B', '2024-05-02', 75.20, 'Concluído');
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<OrdersPage />} />
+        {getPedidos().map(pedido => (
+          <Route key={pedido.id_pedido} path={`/pedido/${pedido.id_pedido}`} element={<OrdersPage />} />
+        ))}
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
