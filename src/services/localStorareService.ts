@@ -1,13 +1,22 @@
+interface Vela {
+  nome_vela: string;
+  tipo_vela: string;
+  aroma_vela: string;
+  cor_vela: string;
+  preco_vela: number;
+  quantidade: number;
+}
+
 interface Pedido {
   id_pedido: number;
   cliente: string;
   data: string;
   total_pedido: number;
   status_pedido: string;
+  velas: Vela[]; // Adicionando o array de objetos de vela
 }
 
-// Função para adicionar um novo pedido ao localStorage
-function adicionarPedido(idPedido: number, cliente: string, data: string, totalPedido: number, statusPedido: string): void {
+function adicionarPedido(idPedido: number, cliente: string, data: string, totalPedido: number, statusPedido: string, velas: Vela[]): void {
   // Verifica se já existem pedidos no localStorage
   let pedidos: Pedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
 
@@ -17,7 +26,8 @@ function adicionarPedido(idPedido: number, cliente: string, data: string, totalP
       cliente: cliente,
       data: data,
       total_pedido: totalPedido,
-      status_pedido: statusPedido
+      status_pedido: statusPedido,
+      velas: velas // Atribuindo o array de velas ao novo pedido
   };
 
   // Adiciona o novo pedido à lista de pedidos
@@ -27,7 +37,6 @@ function adicionarPedido(idPedido: number, cliente: string, data: string, totalP
   localStorage.setItem('pedidos', JSON.stringify(pedidos));
 }
 
-// Função para remover um pedido do localStorage com base no ID do pedido
 function removerPedido(idPedido: number): void {
   // Obtém a lista de pedidos do localStorage
   let pedidos: Pedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
@@ -39,7 +48,6 @@ function removerPedido(idPedido: number): void {
   localStorage.setItem('pedidos', JSON.stringify(pedidos));
 }
 
-// Função para editar um pedido no localStorage com base no ID do pedido
 function editarPedido(idPedido: number, novosDados: Partial<Pedido>): void {
   // Obtém a lista de pedidos do localStorage
   let pedidos: Pedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
@@ -64,9 +72,11 @@ function getPedidos(): Pedido[] {
 export { adicionarPedido, removerPedido, editarPedido, getPedidos };
 
 // Exemplo de uso das funções
-// adicionarPedido(1, 'Cliente A', '2024-05-03', 100.50, 'Em andamento');
-// adicionarPedido(2, 'Cliente B', '2024-05-02', 75.20, 'Concluído');
+// const velasPedido1: Vela[] = [
+//   { nome_vela: 'Vela A', tipo_vela: 'Cônica', aroma_vela: 'Lavanda', cor_vela: 'Roxo', preco_vela: 10.99 },
+//   { nome_vela: 'Vela B', tipo_vela: 'Cilíndrica', aroma_vela: 'Baunilha', cor_vela: 'Branco', preco_vela: 12.99 }
+// ];
 
-// removerPedido(1);
+// adicionarPedido(1, 'Cliente A', '2024-05-03', 100.50, 'Em andamento', velasPedido1);
 
-// editarPedido(2, { total_pedido: 90.00, status_pedido: 'Entregue' });
+

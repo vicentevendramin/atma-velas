@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const MainContainer = styled.div`
@@ -37,19 +38,28 @@ export const Order = (props: {
   data: string;
   total_pedido: number;
   status_pedido: string;
-}) => (
-  <MainContainer>
-    <Status>Status: {props.status_pedido}</Status>
-    <AsideContainer>
-      <AsiceLeft>
-        <div>Pedido: {props.id_pedido}</div>
-        <div>Cliente: {props.cliente}</div>
-        <div>Data: {props.data}</div>
-        <div>Total: R${props.total_pedido}</div>
-      </AsiceLeft>
-      <AsideRight>
-        <button style={{ height: '2rem' }}>Editar</button>
-      </AsideRight>
-    </AsideContainer>
-  </MainContainer>
-);
+}) => {
+  const navigate = useNavigate();
+
+  return (
+    <MainContainer>
+      <Status>Status: {props.status_pedido}</Status>
+      <AsideContainer>
+        <AsiceLeft>
+          <div>Pedido: {props.id_pedido}</div>
+          <div>Cliente: {props.cliente}</div>
+          <div>Data: {props.data}</div>
+          <div>Total: R${props.total_pedido.toFixed(2)}</div>
+        </AsiceLeft>
+        <AsideRight>
+          <button
+            style={{ height: '2rem' }}
+            onClick={() => navigate(`/pedido/${props.id_pedido}`)}
+          >
+            Editar
+          </button>
+        </AsideRight>
+      </AsideContainer>
+    </MainContainer>
+  )
+};

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const HeaderContainer = styled.div`
@@ -16,10 +17,17 @@ const StyledText = styled.div`
   font-size: 2rem;
   color: #ffffff;
   margin-left: 10%;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-export const Header = () => (
-  <HeaderContainer>
-    <StyledText>Atma Velas</StyledText>
-  </HeaderContainer>
-);
+export const Header = () => {
+  const navigate = useNavigate();
+  return (
+    <HeaderContainer>
+      <StyledText onClick={() => navigate('/')}>Atma Velas</StyledText>
+    </HeaderContainer>
+  );
+};
