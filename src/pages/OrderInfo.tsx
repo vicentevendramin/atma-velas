@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Header, Item } from '../components';
@@ -144,9 +144,6 @@ export const OrderInfo = (props: { order: IPedido }) => {
     const newProdutos = produtos.filter((_p, i) => i !== index);
     setProdutos(newProdutos);
   };
-
-  useEffect(() => {
-  }, [pedido]);
 
   return (
     <>

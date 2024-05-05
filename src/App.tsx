@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { OrdersPage, OrderInfo } from './pages';
-import { getPedidos, IPedido, adicionarPedido } from './services/localStorareService';
+import { getPedidos, IPedido } from './services/localStorareService';
 import './App.css'
 
 const App = () => {
@@ -10,12 +11,19 @@ const App = () => {
     // ];
 
     // adicionarPedido(1, 'Cliente A', '2024-05-03', 100.50, 'Em andamento', velasPedido1);
+  const localStorageOrders = getPedidos();
+  const [pedidos, setPedidos] = useState(localStorageOrders);
+
+  useEffect(() => {
+    const updatedLSOrders = getPedidos();
+    setPedidos(updatedLSOrders);
+  }, [pedidos]);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<OrdersPage />} />
-        {getPedidos().map((pedido: IPedido) => (
+        {pedidos.map((pedido: IPedido) => (
           <Route
             key={pedido.id_pedido}
             path={`/pedido/${pedido.id_pedido}`}

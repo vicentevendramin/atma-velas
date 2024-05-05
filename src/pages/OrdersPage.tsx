@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Header, Order } from '../components';
-import { getPedidos } from '../services/localStorareService';
+import { IPedido, getPedidos } from '../services/localStorareService';
 
 const MainContainer = styled.div`
   background-color: #f5f5f5f5;
@@ -25,7 +26,15 @@ const OrdersContainer = styled.div`
 `;
 
 export const OrdersPage = () => {
-  const orders = getPedidos().map(pedido => (
+  const localStorageOrders = getPedidos();
+  const [orders, setOrders] = useState(localStorageOrders);
+
+  useEffect(() => {
+    const updatedLSOrders = getPedidos();
+    setOrders(updatedLSOrders);
+  }, [orders]);
+
+  const renderOrders = orders?.map(pedido => (
     <Order
       key={pedido.id_pedido}
       id_pedido={pedido.id_pedido}
@@ -36,7 +45,7 @@ export const OrdersPage = () => {
     />
   ));
 
-  const ordersValidation = orders.length > 0 ? orders : 'Sem pedidos';
+  const ordersValidation = renderOrders ? renderOrders : 'Sem pedidos';
 
   return (
     <>
