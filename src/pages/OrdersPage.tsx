@@ -1,16 +1,36 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Header, Order } from '../components';
-import { IPedido, getPedidos } from '../services/localStorareService';
+import { getPedidos } from '../services/localStorareService';
 
 const MainContainer = styled.div`
   background-color: #f5f5f5f5;
   margin-top: 4rem;
 `;
 
-// const TopContainer = styled.div`
+const TopContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const AddOrderBtn = styled.button`
+  width: 20%;
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  margin: 1rem;
   
-// `;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const OrdersTitle = styled.h2`
   font-size: 1.5rem;
@@ -26,6 +46,8 @@ const OrdersContainer = styled.div`
 `;
 
 export const OrdersPage = () => {
+  const navigate = useNavigate();
+
   const localStorageOrders = getPedidos();
   const [orders, setOrders] = useState(localStorageOrders);
 
@@ -51,7 +73,10 @@ export const OrdersPage = () => {
     <>
       <Header />
       <MainContainer>
-        <OrdersTitle>Gestão de Pedidos</OrdersTitle>
+        <TopContainer>
+          <OrdersTitle>Gestão de Pedidos</OrdersTitle>
+          <AddOrderBtn onClick={() => navigate('/novo-pedido')}>Novo Pedido</AddOrderBtn>
+        </TopContainer>
         <OrdersContainer>
           {ordersValidation}
         </OrdersContainer>

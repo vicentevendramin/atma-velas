@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { Header, Item } from '../components';
-import { IPedido, IVela, editarPedido, removerPedido } from '../services/localStorareService';
+import {
+  IPedido,
+  IVela,
+  editarPedido,
+  removerPedido,
+  adicionarPedido
+} from '../services/localStorareService';
 
 const MainContainer = styled.div`
   background-color: #f5f5f5f5;
@@ -88,7 +94,7 @@ const OrderInputs = styled.div`
   background-color: #c8c8c8c8;
 `;
 
-export const OrderInfo = (props: { order: IPedido }) => {
+export const OrderInfo = (props: { order: IPedido; newOrder: boolean }) => {
   const navigate = useNavigate();
 
   const pedido = props.order;
@@ -126,7 +132,17 @@ export const OrderInfo = (props: { order: IPedido }) => {
       status_pedido: pedido.status_pedido,
       velas: produtos,
     }
-    editarPedido(pedido.id_pedido, novosDados);
+    if (props.newOrder) {
+      adicionarPedido(
+        novosDados.id_pedido,
+        novosDados.cliente,
+        novosDados.data,
+        novosDados.total_pedido,
+        novosDados.status_pedido,
+        novosDados.velas);
+    } else {
+      editarPedido(pedido.id_pedido, novosDados);
+    }
     navigate('/');
   };
 
@@ -136,7 +152,7 @@ export const OrderInfo = (props: { order: IPedido }) => {
   };
 
   const handleDeleteOrder = () => {
-    removerPedido(pedido.id_pedido);
+    if (!props.newOrder) removerPedido(pedido.id_pedido);
     navigate('/');
   };
 

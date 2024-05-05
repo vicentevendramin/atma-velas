@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { OrdersPage, OrderInfo } from './pages';
+import { OrdersPage, OrderInfo, NewOrder } from './pages';
 import { getPedidos, IPedido } from './services/localStorareService';
 import './App.css'
 
@@ -13,10 +13,13 @@ const App = () => {
     // adicionarPedido(1, 'Cliente A', '2024-05-03', 100.50, 'Em andamento', velasPedido1);
   const localStorageOrders = getPedidos();
   const [pedidos, setPedidos] = useState(localStorageOrders);
+  const [lastOrderId, setLastOrderId] = useState(0);
 
   useEffect(() => {
     const updatedLSOrders = getPedidos();
     setPedidos(updatedLSOrders);
+    const lastOrder = pedidos[pedidos.length - 1];
+    setLastOrderId(lastOrder.id_pedido + 1);
   }, [pedidos]);
 
   return (
@@ -30,6 +33,7 @@ const App = () => {
             element={<OrderInfo order={pedido} />}
           />
         ))}
+        <Route path="/novo-pedido" element={<NewOrder orderId={lastOrderId} />} />
       </Routes>
     </BrowserRouter>
   )
