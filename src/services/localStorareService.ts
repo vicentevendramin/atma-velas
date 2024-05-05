@@ -1,5 +1,4 @@
-interface Vela {
-  nome_vela: string;
+export interface IVela {
   tipo_vela: string;
   aroma_vela: string;
   cor_vela: string;
@@ -7,21 +6,21 @@ interface Vela {
   quantidade: number;
 }
 
-interface Pedido {
+export interface IPedido {
   id_pedido: number;
   cliente: string;
   data: string;
   total_pedido: number;
   status_pedido: string;
-  velas: Vela[]; // Adicionando o array de objetos de vela
+  velas: IVela[]; // Adicionando o array de objetos de vela
 }
 
-function adicionarPedido(idPedido: number, cliente: string, data: string, totalPedido: number, statusPedido: string, velas: Vela[]): void {
+function adicionarPedido(idPedido: number, cliente: string, data: string, totalPedido: number, statusPedido: string, velas: IVela[]): void {
   // Verifica se já existem pedidos no localStorage
-  let pedidos: Pedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
+  let pedidos: IPedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
 
   // Cria um novo objeto de pedido
-  const novoPedido: Pedido = {
+  const novoPedido: IPedido = {
       id_pedido: idPedido,
       cliente: cliente,
       data: data,
@@ -39,7 +38,7 @@ function adicionarPedido(idPedido: number, cliente: string, data: string, totalP
 
 function removerPedido(idPedido: number): void {
   // Obtém a lista de pedidos do localStorage
-  let pedidos: Pedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
+  let pedidos: IPedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
 
   // Filtra os pedidos, removendo o pedido com o ID fornecido
   pedidos = pedidos.filter(pedido => pedido.id_pedido !== idPedido);
@@ -48,9 +47,9 @@ function removerPedido(idPedido: number): void {
   localStorage.setItem('pedidos', JSON.stringify(pedidos));
 }
 
-function editarPedido(idPedido: number, novosDados: Partial<Pedido>): void {
+function editarPedido(idPedido: number, novosDados: Partial<IPedido>): void {
   // Obtém a lista de pedidos do localStorage
-  let pedidos: Pedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
+  let pedidos: IPedido[] = JSON.parse(localStorage.getItem('pedidos') || '[]');
 
   // Encontra o pedido com o ID fornecido na lista de pedidos
   const pedidoIndex: number = pedidos.findIndex(pedido => pedido.id_pedido === idPedido);
@@ -64,7 +63,7 @@ function editarPedido(idPedido: number, novosDados: Partial<Pedido>): void {
   }
 }
 
-function getPedidos(): Pedido[] {
+function getPedidos(): IPedido[] {
   // Obtém a lista de pedidos do localStorage
   return JSON.parse(localStorage.getItem('pedidos') || '[]');
 }
@@ -73,8 +72,8 @@ export { adicionarPedido, removerPedido, editarPedido, getPedidos };
 
 // Exemplo de uso das funções
 // const velasPedido1: Vela[] = [
-//   { nome_vela: 'Vela A', tipo_vela: 'Cônica', aroma_vela: 'Lavanda', cor_vela: 'Roxo', preco_vela: 10.99 },
-//   { nome_vela: 'Vela B', tipo_vela: 'Cilíndrica', aroma_vela: 'Baunilha', cor_vela: 'Branco', preco_vela: 12.99 }
+//   { tipo_vela: 'Cônica', aroma_vela: 'Lavanda', cor_vela: 'Roxo', preco_vela: 10.99 },
+//   { tipo_vela: 'Cilíndrica', aroma_vela: 'Baunilha', cor_vela: 'Branco', preco_vela: 12.99 }
 // ];
 
 // adicionarPedido(1, 'Cliente A', '2024-05-03', 100.50, 'Em andamento', velasPedido1);

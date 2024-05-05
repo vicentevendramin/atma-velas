@@ -29,7 +29,6 @@ const AsideRight = styled.div`
 
 const Status = styled.div`
   width: 100%;
-  text-align: right;
 `;
 
 export const Order = (props: {
