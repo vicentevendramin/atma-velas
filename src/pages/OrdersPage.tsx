@@ -54,9 +54,9 @@ export const OrdersPage = () => {
   useEffect(() => {
     const updatedLSOrders = getPedidos();
     setOrders(updatedLSOrders);
-  }, [orders]);
+  }, []);
 
-  const renderOrders = orders?.map(pedido => (
+  const renderOrders = orders.map(pedido => (
     <Order
       key={pedido.id_pedido}
       id_pedido={pedido.id_pedido}
@@ -67,7 +67,7 @@ export const OrdersPage = () => {
     />
   ));
 
-  const ordersValidation = renderOrders ? renderOrders : 'Sem pedidos';
+  const ordersValidation = orders.length > 0 ? renderOrders : 'Sem pedidos';
 
   return (
     <>

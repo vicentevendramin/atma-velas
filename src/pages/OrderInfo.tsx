@@ -94,16 +94,18 @@ const OrderInputs = styled.div`
   background-color: #c8c8c8c8;
 `;
 
-export const OrderInfo = (props: { order: IPedido; newOrder: boolean }) => {
+export const OrderInfo = (props: { order: IPedido; newOrder?: boolean }) => {
   const navigate = useNavigate();
 
   const pedido = props.order;
 
+  const statusCompra = ['Em andamento', 'Pedido entregue', 'Cancelada'];
   const tiposVela = ['Quadrada', 'Redonda'];
   const aromas = ['Bamboo', 'Baunilha', 'Capim', 'Canela', 'Lavanda', 'Limão', 'Pimenta rosa'];
   const cores = ['Amarelo', 'Azul', 'Vermelho', 'Marrom', 'Roxo'];
 
   const [nomeComprador, setNomeComprador] = useState(pedido.cliente);
+  const [orderStatus, setOrderStatus] = useState(pedido.status_pedido);
   const [tipoVela, setTipoVela] = useState(tiposVela[0]);
   const [corVela, setCorVela] = useState(cores[0]);
   const [aromaVela, setAromaVela] = useState(aromas[0]);
@@ -129,7 +131,7 @@ export const OrderInfo = (props: { order: IPedido; newOrder: boolean }) => {
       cliente: nomeComprador,
       data: pedido.data,
       total_pedido: calcularTotal(),
-      status_pedido: pedido.status_pedido,
+      status_pedido: orderStatus,
       velas: produtos,
     }
     if (props.newOrder) {
@@ -174,6 +176,13 @@ export const OrderInfo = (props: { order: IPedido; newOrder: boolean }) => {
                 Nome comprador: <input type="text" value={nomeComprador} onChange={(e) => setNomeComprador(e.target.value)} />
               </div>
             </InputsContainer>
+            <InputsContainer>
+                <label>Status da compra: </label>
+                <select value={orderStatus} onChange={(e) => setOrderStatus(e.target.value)}>
+                  {statusCompra.map((status, i) => 
+                    <option key={`${i}-${status}`} value={status}>{status}</option>)}
+                </select>
+              </InputsContainer>
           </OrderSection>
           <ButtonsContainer>
             <SaveBtn onClick={handleSaveOrder}>Salvar pedido</SaveBtn>

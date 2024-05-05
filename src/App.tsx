@@ -19,7 +19,11 @@ const App = () => {
     const updatedLSOrders = getPedidos();
     setPedidos(updatedLSOrders);
     const lastOrder = pedidos[pedidos.length - 1];
-    setLastOrderId(lastOrder.id_pedido + 1);
+    if (pedidos.length > 0) {
+      setLastOrderId(lastOrder.id_pedido);
+    } else {
+      setLastOrderId(1);
+    }
   }, [pedidos]);
 
   return (
