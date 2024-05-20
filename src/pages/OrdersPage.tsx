@@ -75,7 +75,7 @@ export const OrdersPage = () => {
       <MainContainer>
         <TopContainer>
           <OrdersTitle>Gestão de Pedidos</OrdersTitle>
-          <AddOrderBtn onClick={() => navigate('/novo-pedido')}>Novo Pedido</AddOrderBtn>
+          <AddOrderBtn onClick={() => navigate('/atma-velas/novo-pedido')}>Novo Pedido</AddOrderBtn>
         </TopContainer>
         <OrdersContainer>
           {ordersValidation}

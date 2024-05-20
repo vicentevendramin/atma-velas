@@ -145,7 +145,7 @@ export const OrderInfo = (props: { order: IPedido; newOrder?: boolean }) => {
     } else {
       editarPedido(pedido.id_pedido, novosDados);
     }
-    navigate('/');
+    navigate('/atma-velas');
   };
 
   const calcularTotal = (): number => {
@@ -155,7 +155,7 @@ export const OrderInfo = (props: { order: IPedido; newOrder?: boolean }) => {
 
   const handleDeleteOrder = () => {
     if (!props.newOrder) removerPedido(pedido.id_pedido);
-    navigate('/');
+    navigate('/atma-velas');
   };
 
   const handleRemove = (index: number) => {

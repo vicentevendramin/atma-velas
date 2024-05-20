@@ -27,7 +27,7 @@ export const Header = () => {
   const navigate = useNavigate();
   return (
     <HeaderContainer>
-      <StyledText onClick={() => navigate('/')}>Atma Velas</StyledText>
+      <StyledText onClick={() => navigate('/atma-velas')}>Atma Velas</StyledText>
     </HeaderContainer>
   );
 };

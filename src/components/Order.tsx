@@ -53,7 +53,7 @@ export const Order = (props: {
         <AsideRight>
           <button
             style={{ height: '2rem' }}
-            onClick={() => navigate(`/pedido/${props.id_pedido}`)}
+            onClick={() => navigate(`/atma-velas/pedido/${props.id_pedido}`)}
           >
             Editar
           </button>
