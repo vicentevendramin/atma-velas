@@ -29,15 +29,15 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<OrdersPage />} />
+        <Route path="/atma-velas" element={<OrdersPage />} />
         {pedidos.map((pedido: IPedido) => (
           <Route
             key={pedido.id_pedido}
-            path={`/pedido/${pedido.id_pedido}`}
+            path={`/atma-velas/pedido/${pedido.id_pedido}`}
             element={<OrderInfo order={pedido} />}
           />
         ))}
-        <Route path="/novo-pedido" element={<NewOrder orderId={lastOrderId} />} />
+        <Route path="/atma-velas/novo-pedido" element={<NewOrder orderId={lastOrderId} />} />
       </Routes>
     </BrowserRouter>
   )
